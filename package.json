@@ -2,7 +2,7 @@
 	"name": "vue-component-minify",
 	"displayName": "vue-component-minify",
 	"description": "Minify vue component to separate file",
-	"icon": "icon.png",
+	"icon": "https://github.com/MartinC1996/vue-component-minify/blob/master/icon.png?raw=true",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.55.0"
@@ -11,23 +11,47 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:vue-component-minify.helloWorld",
-		"onCommand:es6-css-minify.loadConfig",
-        "onCommand:es6-css-minify.minify",
+		"onCommand:vue-component-minify.loadConfig",
+        "onCommand:vue-component-minify.minifyDoc",
 		"workspaceContains:**/*.vue"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "vue-component-minify.helloWorld",
-				"title": "Hello World"
+				"command": "vue-component-minify.minifyDoc",
+				"title": "Minify component"
 			},
 			{
 				"command": "vue-component-minify.loadConfig",
 				"title": "Load Config"
 			}
-		]
+		],
+		"configuration":{
+			"type": "object",
+			"title": "Vue Component Minifier",
+			"properties": {
+				"vue-component-minify.minifyOnSave":{
+					"type": "string",
+					"description": "Automatically minify file when saving (yes/no).",
+					"default": "yes",
+					"enum": [
+						"yes",
+						"no"
+					]
+				},
+				"vue-component-minify.minPath":{
+					"type": "string",
+                    "description": "Where to save the minified file.",
+                    "default": "/componentsmin"
+				},
+				"vue-component-minify.postfix":{
+					"type": "string",
+                    "description": "Filename postfix",
+                    "default": "min"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",

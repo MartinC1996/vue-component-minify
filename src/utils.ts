@@ -14,7 +14,7 @@ export function getOutPath(doc: vscode.TextDocument): string {
     let outNameParts = file.basename.split('.');
 
     outNameParts.pop();
-    outNameParts.push(config.jsPostfix);
+    outNameParts.push(config.postfix);
 
    
     outNameParts.push(file.extname.replace('.', ''));
@@ -22,13 +22,22 @@ export function getOutPath(doc: vscode.TextDocument): string {
 
     let outPath: string;
 
-    if (config.jsMinPath && vscode.workspace.workspaceFolders) {
-        outPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, config.jsMinPath, baseOut);
+    if (config.minPath && vscode.workspace.workspaceFolders) {
+        outPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, config.minPath, baseOut);
     } else {
         outPath = path.join(file.dirname, baseOut);
     }
 
 
     return outPath;
+
+}
+
+export function getFileExtension(filename: string): string{
+    let fileExt = filename.split('.').pop();
+    if (fileExt === undefined){
+        fileExt = "";
+    }
+    return fileExt;
 
 }

@@ -6,42 +6,30 @@ import * as fs from 'fs';
 
 export function minify(doc: vscode.TextDocument): void {
 
-    const text = doc.getText();
-    const baseName = path.basename(doc.fileName);
+    var text = doc.getText();
+    
+    //delete html comments
+    text = text.replace(/<\!--.*?-->/g, "");
 
-    // Minify
+    //delete js comments
+    text = text.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g,'').trim();
+
+    //delete new line,tabs, multiple space
+    text = text.replace(/\t/g, '');
+    text = text.replace(/\s{2,}/g, ' ');  
+    text = text.replace(/(\r\n|\n|\r)/gm, "");
+  
+    // Save new file
     const outPath = getOutPath(doc);
-    fs.writeFileSync(outPath, doc.getText(), { encoding: 'utf8' });
-
-    // const minifier = new EsMinifier(config.js);
-    // const res = minifier.minify(text, baseName, {
-    //     outFileName: path.basename(outPath),
-    //     jsMapSource: config.jsMapSource
-    // });
-    // if (res.success) {
-    //     try {
-    //         if (config.genJSmap === true || config.genJSmap === null) {
-    //             new File(`${outPath}.map`).write(res.output.map);
-    //         }
-    //         new File(outPath).write(res.output.code);
-    //         statusBar.showStats(res.efficiency);
-    //         output.printMinifyResult(`${baseName}`, res);
-    //         if (res.warnings.length && config.showLogOnWarning) {
-    //             output.show();
-    //         }
-    //     } catch (e) {
-    //         vscode.window.showErrorMessage('Failed to write to file. Does the output path exist?');
-    //     }
-    // } else if (config.showLogOnError) {
-    //     output.printMinifyResult(`${baseName}`, res);
-    //     output.show();
-    // } else {
-    //     output.printMinifyResult(`${baseName}`, res);
-    // }
-       
-
+    try{
+        fs.writeFileSync(outPath, text, { encoding: 'utf8' });
+        // vscode.window.showInformationMessage('Minify done!');
+    }catch (e){
+        vscode.window.showErrorMessage('Failed to write to file. Does the output path exist?');
+    }
+    
  
-    vscode.window.showInformationMessage('vue-component-minify minify done!');
+    
     
 
 }

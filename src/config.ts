@@ -4,17 +4,16 @@ class Config {
 
     // General
     minifyOnSave: boolean | 'yes' | 'no';
-    jsMinPath: string;
-    jsPostfix: string;
+    minPath: string;
+    postfix: string;
 
     constructor() {
 
         const conf: Config = JSON.parse(JSON.stringify(vscode.workspace.getConfiguration('vue-component-minify')));
 
-        // General
         this.minifyOnSave = conf.minifyOnSave;
-        this.jsMinPath = conf.jsMinPath;
-        this.jsPostfix = conf.jsPostfix;
+        this.minPath = conf.minPath;
+        this.postfix = conf.postfix;
     }
 
 }
