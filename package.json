@@ -2,8 +2,23 @@
 	"name": "vue-component-minify",
 	"displayName": "vue-component-minify",
 	"description": "Minify vue component to separate file",
-	"icon": "https://github.com/MartinC1996/vue-component-minify/blob/master/icon.png?raw=true",
+	"icon": "icon.png",
 	"version": "0.0.1",
+	"publisher": "MartinCincurak",
+	"repository": {
+        "type": "git",
+        "url": "https://github.com/MartinC1996/vue-component-minify"
+    },
+	"author": {
+        "name": "Martin Cincurak",
+        "email": "martin.cincurak@gmail.com"
+    },
+	"keywords": [
+        "vue",
+        "component",
+        "vuejs",
+        "minify"
+    ],
 	"engines": {
 		"vscode": "^1.55.0"
 	},
