@@ -3,7 +3,7 @@
 	"displayName": "vue-component-minify",
 	"description": "Minify vue component to separate file",
 	"icon": "icon.png",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"publisher": "MartinCincurak",
 	"repository": {
         "type": "git",
