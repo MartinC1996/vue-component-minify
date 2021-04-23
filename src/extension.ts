@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import { config, reloadConfig } from './config';
 import { minify } from './minify';
-import { getFileExtension } from './utils';
+import { getFileExtension, isInFolder } from './utils';
+import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
 	
@@ -26,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-		if(getFileExtension(editor.document.fileName) === "vue"){
+		if(getFileExtension(editor.document.fileName) === "vue" && (config.useBasePath === 'no' || isInFolder(path.dirname(editor.document.uri.fsPath), "src"))){
 			minify(editor.document);		
 		}
 	});
@@ -36,8 +37,8 @@ export function activate(context: vscode.ExtensionContext) {
 		if (config.minifyOnSave === false || config.minifyOnSave === 'no') {
 			return;
 		}
-	
-		if(getFileExtension(doc.fileName) === "vue"){
+		
+		if(getFileExtension(doc.fileName) === "vue" && (config.useBasePath === 'no' || isInFolder(path.dirname(doc.uri.fsPath), "src"))){
 			minify(doc);		
 		}
 

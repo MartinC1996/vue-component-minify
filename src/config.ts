@@ -6,6 +6,7 @@ class Config {
     minifyOnSave: boolean | 'yes' | 'no';
     minPath: string;
     postfix: string;
+    useBasePath: boolean |'yes' | 'no';
 
     constructor() {
 
@@ -14,6 +15,7 @@ class Config {
         this.minifyOnSave = conf.minifyOnSave;
         this.minPath = conf.minPath;
         this.postfix = conf.postfix;
+        this.useBasePath = conf.useBasePath;
     }
 
 }

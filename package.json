@@ -3,7 +3,7 @@
 	"displayName": "vue-component-minify",
 	"description": "Minify vue component to separate file",
 	"icon": "icon.png",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "MartinCincurak",
 	"repository": {
         "type": "git",
@@ -49,6 +49,15 @@
 				"vue-component-minify.minifyOnSave":{
 					"type": "string",
 					"description": "Automatically minify file when saving (yes/no).",
+					"default": "yes",
+					"enum": [
+						"yes",
+						"no"
+					]
+				},
+				"vue-component-minify.useBasePath":{
+					"type": "string",
+					"description": " Minify files only in folder src and save it in root project with same folder structure (yes/no). If yes minPath is not used.",
 					"default": "yes",
 					"enum": [
 						"yes",

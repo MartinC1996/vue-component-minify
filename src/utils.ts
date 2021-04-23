@@ -14,20 +14,31 @@ export function getOutPath(doc: vscode.TextDocument): string {
     let outNameParts = file.basename.split('.');
 
     outNameParts.pop();
-    outNameParts.push(config.postfix);
 
+    if(config.useBasePath === "no"){
+        outNameParts.push(config.postfix);
+    }
+    
    
     outNameParts.push(file.extname.replace('.', ''));
     const baseOut = outNameParts.join('.');
 
     let outPath: string;
-
-    if (config.minPath && vscode.workspace.workspaceFolders) {
-        outPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, config.minPath, baseOut);
-    } else {
-        outPath = path.join(file.dirname, baseOut);
+    if(config.useBasePath === "no"){
+        if (config.minPath && vscode.workspace.workspaceFolders) {
+            outPath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, config.minPath, baseOut);
+        } else {
+            outPath = path.join(file.dirname, baseOut);
+        }
+    }else{
+        if(file.dirname.endsWith("\\src")){
+            outPath = path.join(file.dirname.replace('\\src', '\\'), baseOut);
+        }else{
+            outPath = path.join(file.dirname.replace('\\src\\', '\\'), baseOut);
+        }
+        
+        vscode.window.showInformationMessage(outPath);
     }
-
 
     return outPath;
 
@@ -40,4 +51,9 @@ export function getFileExtension(filename: string): string{
     }
     return fileExt;
 
+}
+
+export function isInFolder(filePath: String, folderName: string): boolean{
+
+    return filePath.includes("\\" + folderName + "\\") || filePath.endsWith("\\" + folderName); 
 }
