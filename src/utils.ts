@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { config, reloadConfig } from './config';
+import { config } from './config';
 import * as path from 'path';
 
 export function getOutPath(doc: vscode.TextDocument): string {
@@ -19,7 +19,6 @@ export function getOutPath(doc: vscode.TextDocument): string {
         outNameParts.push(config.postfix);
     }
     
-   
     outNameParts.push(file.extname.replace('.', ''));
     const baseOut = outNameParts.join('.');
 
@@ -36,12 +35,9 @@ export function getOutPath(doc: vscode.TextDocument): string {
         }else{
             outPath = path.join(file.dirname.replace('\\src\\', '\\'), baseOut);
         }
-        
-        vscode.window.showInformationMessage(outPath);
     }
 
     return outPath;
-
 }
 
 export function getFileExtension(filename: string): string{
@@ -50,7 +46,6 @@ export function getFileExtension(filename: string): string{
         fileExt = "";
     }
     return fileExt;
-
 }
 
 export function isInFolder(filePath: String, folderName: string): boolean{

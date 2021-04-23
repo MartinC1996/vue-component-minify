@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 
 class Config {
 
-    // General
     minifyOnSave: boolean | 'yes' | 'no';
     minPath: string;
     postfix: string;

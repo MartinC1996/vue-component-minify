@@ -1,6 +1,4 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
-import { config } from './config';
 import { getOutPath } from './utils';
 import * as fs from 'fs';
 
@@ -21,12 +19,21 @@ export function minify(doc: vscode.TextDocument): void {
     text = text.replace(/\t/g, '');
     text = text.replace(/\s{2,}/g, ' ');
 
-    // Save new file
     const outPath = getOutPath(doc);
+    const dirPath = outPath.substring(0,outPath.lastIndexOf("\\")+1);
 
+    //create folder structure if doesnt exist
+    if(!fs.existsSync(dirPath)){
+        try{
+            fs.mkdirSync(dirPath);
+        }catch (e){
+            vscode.window.showErrorMessage('Failed to write to file. Does the output path exist?');
+        }    
+    }
+
+    //save file
     try{
         fs.writeFileSync(outPath, text, { encoding: 'utf8' });
-        // vscode.window.showInformationMessage('Minify done!');
     }catch (e){
         vscode.window.showErrorMessage('Failed to write to file. Does the output path exist?');
     }
