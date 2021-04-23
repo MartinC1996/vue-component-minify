@@ -18,3 +18,7 @@ Initial release
 ### 0.0.2
 * fixed delete multiline html comments
 * added config useBasePath
+
+### 0.0.3
+* fixed create directory if doesnt exist (saveFile)
+* deleted showInfo
